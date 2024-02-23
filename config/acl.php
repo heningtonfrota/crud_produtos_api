@@ -2,6 +2,6 @@
 
 return [
     'super_admins' => [
-        'carlos@especializati.com.br'
+        'kathryn97@example.org'
     ],
 ];

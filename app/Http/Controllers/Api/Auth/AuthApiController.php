@@ -18,7 +18,7 @@ class AuthApiController extends Controller
     }
 
     public function auth(AuthApiRequest $request)
-    {     
+    {
         $user = $this->userRepository->findByEmail($request->email);
         if (! $user || ! Hash::check($request->password, $user->password)) {
             throw ValidationException::withMessages([

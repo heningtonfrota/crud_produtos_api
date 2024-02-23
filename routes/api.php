@@ -11,15 +11,13 @@ Route::post('/logout', [AuthApiController::class, 'logout'])->name('auth.logout'
 Route::post('/auth', [AuthApiController::class, 'auth'])->name('auth.login');
 
 Route::middleware(['auth:sanctum', 'acl'])->group(function () {
-    Route::apiResource('/permissions', PermissionController::class);
+    Route::apiResource('permissions', PermissionController::class);
+    Route::apiResource('users', UserController::class);
 
-    Route::get('/users/{user}/permissions', [PermissionUserController::class, 'getPermissionsOfUser'])->name('users.permissions');
-    Route::post('/users/{user}/permissions-sync', [PermissionUserController::class, 'syncPermissionsOfUser'])->name('users.permissions.sync');
-    Route::delete('/users/{user}', [UserController::class, 'destroy'])->name('users.destroy');
-    Route::put('/users/{user}', [UserController::class, 'update'])->name('users.update');
-    Route::get('/users/{user}', [UserController::class, 'show'])->name('users.show');
-    Route::post('/users', [UserController::class, 'store'])->name('users.store');
-    Route::get('/users', [UserController::class, 'index'])->name('users.index');
+    Route::prefix('users')->group(function () {
+        Route::get('{user}/permissions', [PermissionUserController::class, 'getPermissionsOfUser'])->name('users.permissions');
+        Route::post('{user}/permissions-sync', [PermissionUserController::class, 'syncPermissionsOfUser'])->name('users.permissions.sync');
+    });
 });
 
 Route::get('/', fn () => response()->json(['message' => 'ok']));
