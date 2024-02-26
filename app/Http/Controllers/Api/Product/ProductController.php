@@ -22,11 +22,7 @@ class ProductController extends Controller
      */
     public function index(Request $request)
     {
-        $products = $this->productRepository->getPaginate(
-            totalPerPage: $request->total_per_page ?? 15,
-            page: $request->page ?? 1,
-            filter: $request->get('filter', ''),
-        );
+        $products = $this->productRepository->getProducts(filter: $request->get('filter', ''));
         return ProductResource::collection($products);
     }
 

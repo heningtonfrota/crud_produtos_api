@@ -13,6 +13,19 @@ class ProductRepository
     {   
     }
 
+    public function getProducts(string $filter = ''): LengthAwarePaginator
+    {
+        return $this->product->where(function ($query) use ($filter) {
+            if ($filter !== '') {
+                $query
+                    ->where('name', 'LIKE', "%{$filter}%")
+                    ->orWhere('description', 'LIKE', "%{$filter}%");
+            }
+        })
+        ->with(['category'])
+        ->paginate();
+    }
+
     public function getPaginate(int $totalPerPage = 15, int $page = 1, string $filter = ''): LengthAwarePaginator
     {
         return $this->product->where(function ($query) use ($filter) {
