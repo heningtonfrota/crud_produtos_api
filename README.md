@@ -62,6 +62,7 @@ Gere a key do projeto Laravel
 php artisan key:generate
 ```
 
+Após o projeto configurado vá ao arquivo nda pasta config acl.php e forneça um email para transformar o usuario em admin
 
 Acesse o projeto
 [http://localhost](http://localhost)
