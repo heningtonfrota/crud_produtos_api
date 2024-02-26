@@ -1,5 +1,5 @@
 
-# Setup Docker Laravel 10 com PHP 8.1
+# Crud Api Laravel 10 com PHP 8.2
 
 ### Passo a passo
 Clone Repositório
