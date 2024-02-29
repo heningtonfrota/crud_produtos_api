@@ -11,7 +11,6 @@ class EditProductDTO
         readonly public string $price,
         readonly public string $expiration_date,
         readonly public string $category_id,
-    ) {
-        //
-    }
+        readonly public string $image,
+    ) { }
 }

@@ -42,6 +42,12 @@ class StoreUpdateProductRequest extends FormRequest
             ],
             'category_id' => [
                 'required'
+            ],
+            'image' => [
+                'required',
+                'image',
+                'mimes:jpeg,png,jpg',
+                'max:2048'
             ]
         ];
     }

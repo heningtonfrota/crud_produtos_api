@@ -17,7 +17,8 @@ return new class extends Migration
             $table->string('description', 200);
             $table->double('price');
             $table->date('expiration_date');
-
+            $table->text('image');
+            
             $table->uuid('category_id');
             $table->foreign('category_id')->references('id')->on('categories')->onDelete('cascade');
 

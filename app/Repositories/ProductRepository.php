@@ -5,13 +5,14 @@ namespace App\Repositories;
 use App\DTO\Products\CreateProductDTO;
 use App\DTO\Products\EditProductDTO;
 use App\Models\Product;
+use Illuminate\Http\File;
+use Illuminate\Http\Request;
 use Illuminate\Pagination\LengthAwarePaginator;
 
 class ProductRepository
 {
     public function __construct(protected Product $product)
-    {   
-    }
+    {   }
 
     public function getProducts(string $filter = ''): LengthAwarePaginator
     {
@@ -39,9 +40,14 @@ class ProductRepository
         ->paginate($totalPerPage, ['*'], 'page', $page);
     }
 
-    public function createNew(CreateProductDTO $dto): Product
+    public function createNew(CreateProductDTO $dto): ?Product
     {
         $data = (array) $dto;
+        
+        $name = time() . '.' . $data['image']->getClientOriginalExtension();
+        $data['image']->storeAs('public/products/', $name);
+        $data['image'] = $name;
+        
         return $this->product->create($data);
     }
 

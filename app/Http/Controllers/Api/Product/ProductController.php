@@ -10,6 +10,7 @@ use App\Http\Resources\ProductResource;
 use App\Repositories\ProductRepository;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
+use Illuminate\Support\Facades\Storage;
 
 class ProductController extends Controller
 {
@@ -30,7 +31,7 @@ class ProductController extends Controller
      * Store a newly created resource in storage.
      */
     public function store(StoreUpdateProductRequest $request)
-    {        
+    {
         $product = $this->productRepository->createNew(new CreateProductDTO(... $request->validated()));
         return $this->show($product->id);
     }
@@ -63,6 +64,9 @@ class ProductController extends Controller
      */
     public function destroy(string $id)
     {
+        $product = $this->productRepository->findById($id);
+        Storage::delete('public/products/' . $product->image);
+
         if (!$this->productRepository->delete($id)) {
             return response()->json(['message' => 'product not found'], Response::HTTP_NOT_FOUND);
         }
