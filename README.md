@@ -10,12 +10,10 @@ git clone https://github.com/heningtonfrota/crud_produtos_api.git api
 cd api
 ```
 
-
 Crie o Arquivo .env
 ```sh
 cp .env.example .env
 ```
-
 
 Atualize as variáveis de ambiente do arquivo .env
 ```dosini
@@ -38,31 +36,40 @@ REDIS_PASSWORD=null
 REDIS_PORT=6379
 ```
 
-
 Suba os containers do projeto
 ```sh
 docker-compose up -d
 ```
-
 
 Acesse o container app
 ```sh
 docker-compose exec app bash
 ```
 
-
 Instale as dependências do projeto
 ```sh
 composer install
 ```
-
 
 Gere a key do projeto Laravel
 ```sh
 php artisan key:generate
 ```
 
-Após o projeto configurado vá ao arquivo nda pasta config acl.php e forneça um email para transformar o usuario em admin
+Após o projeto configurado:
+```sh
+php artisan migrate --seed
+```
+
+Obs: O usuario que é criado na factory é: 
+    - email: super_user@example.com
+    - senha: password
+
+Usuario gerado pela factory já esta cadastrado como super_user no arquivo: config/acl.php
+
+Pode-se adicionar outros emails para transformar outros usuarios em super_user
+
+O cadastro de permissoes por tela ainda não implementado. Mas pode ser realizado direto no banco de dados.
 
 Acesse o projeto
 [http://localhost](http://localhost)
